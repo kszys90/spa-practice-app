@@ -2,19 +2,36 @@ import React from 'react'
 import '../App.css'
 import { getData } from '../api/getData'
 import { useAsyncFn } from 'react-use'
-import Oval from 'react-loading-icons/dist/esm/components/oval'
-import { renderItem } from '../components/renderItem'
+import { useDispatch } from 'react-redux'
+import { createInitState, filterData, loadData } from '../state/data'
+import { Outlet } from 'react-router-dom'
 
 export const Main = () => {
   const [state, doFetch] = useAsyncFn(getData)
+  const [inputVal, setInputVal] = React.useState('')
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
     doFetch()
-  }, [doFetch])
+  }, [dispatch, doFetch])
+  React.useEffect(() => {
+    if (state) {
+      dispatch(loadData(state))
+      if (state.value && state.value.data) {
+        dispatch(createInitState(state.value.data))
+      }
+    }
+  }, [dispatch, state])
 
   function handleSubmit (e) {
     e.preventDefault(e)
-    return console.log('submit')
+    if (inputVal === '') dispatch(createInitState(state.value.data))
+    else {
+      dispatch(filterData(inputVal))
+    }
+  }
+  function handleInputChange (e) {
+    if (!isNaN(e.target.value)) { setInputVal(e.target.value) }
   }
 
   return (
@@ -40,6 +57,8 @@ export const Main = () => {
               name={'search'}
               className={'search-tools__input'}
               placeholder={'Type id number'}
+              value={inputVal}
+              onChange={(e) => handleInputChange(e)}
             />
           </label>
           <button
@@ -52,29 +71,7 @@ export const Main = () => {
       </div>
       <div className={'content__container'}>
 
-        {state.loading ?
-          <Oval stroke={'#000000'} />
-          :
-          state.error ?
-            <h2 className={'error--message'}>Error: {state.error.message}</h2>
-            :
-              !state.value ?
-                'No data'
-                :
-                <table className={'content__table'}>
-                  <thead className={'content__table--head'}>
-                    <tr>
-                      <th>ID:</th>
-                      <th>NAME:</th>
-                      <th>YEAR:</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {state.value.data.map(item => renderItem(item))}
-                  </tbody>
-                </table>
-        }
-
+        <Outlet />
       </div>
     </div>
   )

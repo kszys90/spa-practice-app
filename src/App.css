@@ -17,13 +17,6 @@ body {
   width: 70%;
 }
 
-@media (max-width: 600px) {
-  .background {
-    width: 80%;
-    min-width: 300px;
-  }
-}
-
 .header {
   text-align: center;
 }
@@ -70,6 +63,7 @@ body {
   padding: 10px;
   margin-bottom: 10px;
   border: 0.5px solid #3498db;
+  font-size: 1rem;
 }
 
 .search-tools__button {
@@ -78,6 +72,7 @@ body {
   background-color: #3498db;
   border: 0.5px solid #3498db;
   color: white;
+  font-size: 1rem;
 }
 
 .content__container {
@@ -93,9 +88,29 @@ body {
   width: 80%;
   border: none;
   border-spacing: 0;
+  font-size: 1rem;
 }
 
 .content__table--head {
   background-color: lightgrey;
   font-weight: 700;
+}
+
+.content__table--td {
+  padding: 7px 0;
+}
+
+.content__table--th {
+  padding: 10px 0;
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 11px;
+  }
+
+  .background {
+    width: 80%;
+    min-width: 300px;
+  }
 }
