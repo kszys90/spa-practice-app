@@ -10,6 +10,7 @@ export const LinkNav = (props) => {
   const [isHover, setHovered] = React.useState(false)
   const linkStyle =
         {
+          color: 'black',
           transition: '600ms',
           textDecoration: isHover ? 'underline' : 'inherit'
         }

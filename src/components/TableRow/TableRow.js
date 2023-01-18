@@ -1,13 +1,14 @@
-/* eslint-disable no-unused-vars */
 import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const RenderTableElement = (props) => {
+export const TableRow = (props) => {
   const { item } = props
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const [isHover, setHovered] = React.useState(false)
+
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -23,9 +24,10 @@ export const RenderTableElement = (props) => {
   return (
     <>
       <tr
-        key={item.id}
-        style={{ background: item.color }}
+        style={{ background: item.color, textDecoration: isHover ? 'underline' : 'inherit' }}
         onClick={handleOpen}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
         <td className={'content__table--td'}>{item.id}</td>
         <td className={'content__table--td'}>{item.name}</td>
@@ -60,7 +62,7 @@ export const RenderTableElement = (props) => {
   )
 }
 
-RenderTableElement.propTypes = {
+TableRow.propTypes = {
   children: PropTypes.node,
   item: PropTypes.any
 }

@@ -4,16 +4,19 @@ import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import Main from './pages/Main'
 import { store } from './store'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-describe('App tests', () => {
+describe('<Main />', () => {
   test('Config test - should pass', () => {
     expect(true).toBe(true)
   })
   test('title should be in the document', () => {
     const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
     )
     const title = container.querySelector('[data-testid="header-title"]')
 
@@ -21,9 +24,11 @@ describe('App tests', () => {
   })
   test('search-form should be in the document', () => {
     const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
     )
     const searchForm = container.querySelector('[data-testid="search-form"]')
 
@@ -31,9 +36,11 @@ describe('App tests', () => {
   })
   test('Search-input should be in the document', () => {
     const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
     )
     const searchFormInput = container.querySelector('[data-testid="search-form-input"]')
 
@@ -41,9 +48,11 @@ describe('App tests', () => {
   })
   test('Search-button should be in the document', () => {
     const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
     )
     const searchFormButton = container.querySelector('[data-testid="search-form-button"]')
 
@@ -51,9 +60,11 @@ describe('App tests', () => {
   })
   test('Search-input should have value atrribute', () => {
     const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
     )
     const searchFormInput = container.querySelector('[data-testid="search-form-input"]')
 
@@ -62,45 +73,53 @@ describe('App tests', () => {
 
   test('Search-button should call submit when clicked', () => {
     const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
     )
     const searchFormButton = container.querySelector('[data-testid="search-form-button"]')
 
     expect(searchFormButton).toBeEnabled()
   })
+  it('should not allow to change input value with letters', () => {
+    const { container } = render(
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
+    )
+    const searchFormInput = container.querySelector('[data-testid="search-form-input"]')
+    fireEvent.change(searchFormInput, { target: { value: 'example' } })
+
+    expect(searchFormInput.value).toBe('')
+  })
+  it('should not allow to change input value with letters', () => {
+    const { container } = render(
+      <Router>
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      </Router>
+    )
+    const searchFormInput = container.querySelector('[data-testid="search-form-input"]')
+    fireEvent.change(searchFormInput, { target: { value: 'example' } })
+
+    expect(searchFormInput.value).toBe('')
+  })
   it('should allow to change input value with numbers', () => {
     const { container } = render(
       <Provider store={store}>
-        <Main />
+        <Router>
+          <Main />
+        </Router>
       </Provider>
     )
     const searchFormInput = container.querySelector('[data-testid="search-form-input"]')
-    fireEvent.change(searchFormInput, { target: { value: '23' } })
+    fireEvent.change(searchFormInput, { target: { value: '123' } })
 
-    expect(searchFormInput.value).toBe('23')
-  })
-  it('should not allow to change input value with letters', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
-    )
-    const searchFormInput = container.querySelector('[data-testid="search-form-input"]')
-    fireEvent.change(searchFormInput, { target: { value: 'example' } })
-
-    expect(searchFormInput.value).toBe('')
-  })
-  it('should not allow to change input value with letters', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <Main />
-      </Provider>
-    )
-    const searchFormInput = container.querySelector('[data-testid="search-form-input"]')
-    fireEvent.change(searchFormInput, { target: { value: 'example' } })
-
-    expect(searchFormInput.value).toBe('')
+    expect(searchFormInput.value).toBe('123')
   })
 })

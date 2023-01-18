@@ -76,6 +76,12 @@ body {
   font-size: 1rem;
 }
 
+.search-tools__button:hover {
+  background-color: #2d86c2;
+  border: 0.5px solid #2d86c2;
+
+}
+
 .content__container {
   text-align: center;
 }
@@ -103,6 +109,7 @@ body {
 
 .content__table--td {
   padding: 7px 0;
+  cursor: pointer;
 }
 
 .content__table--th {
