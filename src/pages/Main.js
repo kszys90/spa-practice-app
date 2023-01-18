@@ -42,17 +42,29 @@ export const Main = () => {
         className={'header'}
       >
         <div>
-          <h1 className={'header__title'}><span className={'header__title--modified'}>Search</span> Items</h1>
-          <h4 className={'header__sub-title'}>Type <span className={'header__sub-title--modified'}>Id</span> and find Your Item!</h4>
+          <h1
+            className={'header__title'}
+            data-testid={'header-title'}
+          >
+            <span className={'header__title--modified'}>Search</span> Items
+          </h1>
+          <h4
+            className={'header__sub-title'}
+            data-testid={'header-title__desc'}
+          >
+            Type <span className={'header__sub-title--modified'}>Id</span> and find Your Item!
+          </h4>
         </div>
       </header>
       <div className={'search-tools__container'}>
         <form
-          id={'search-form'}
           onSubmit={(e) => handleSubmit(e)}
+          id={'search-form'}
+          data-testid={'search-form'}
         >
           <label htmlFor={'search'}>
             <input
+              data-testid={'search-form-input'}
               type={'text'}
               name={'search'}
               className={'search-tools__input'}
@@ -62,6 +74,7 @@ export const Main = () => {
             />
           </label>
           <button
+            data-testid={'search-form-button'}
             type={'submit'}
             className={'search-tools__button'}
             form={'search-form'}
@@ -70,7 +83,6 @@ export const Main = () => {
         </form>
       </div>
       <div className={'content__container'}>
-
         <Outlet />
       </div>
     </div>

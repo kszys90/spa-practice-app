@@ -9,20 +9,27 @@ function App () {
     <Routes>
       <Route
         path={'/'}
+        element={<Navigate
+          replace
+          to={'/page/1'}
+                 />}
+      />
+      <Route
+        path={'/'}
         element={<Main />}
       >
         <Route
-          path={'page'}
+          path={'page/:pageNo'}
           element={<MainContent />}
         />
       </Route>
-      <Route
+      {/* <Route
         path={'*'}
         element={<Navigate
           replace
           to={'/404'}
                  />}
-      />
+      /> */}
 
       <Route
         path={'/404'}
